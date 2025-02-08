@@ -2,6 +2,10 @@ const User = require("../Schema/userSchema")
 const Helper = require("../Helper/GenerateToken")
 const Cart = require("../Schema/cartSchema")
 const wishlist = require("../Schema/wishlistSchema")
+
+module.exports.test = async(req, res)=>{
+    res.json({message:"Running"})
+}
 module.exports.Login = async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username: username });
