@@ -7,11 +7,17 @@ const Database =  require("./config/database")
 
 const cors = require('cors')
 
+const crosConfig = {
+  origin:"*",
+  Credential:true,
+  methods:["GET","POST","PUT","DELETE","PATCH"]
+}
 
 const app = express()
 const port =  8080
 
-app.use(cors())
+app.options("",cors(crosConfig))
+app.use(cors(crosConfig))
 
 app.use(express.json()); // Thay thế bodyParser.json()
 app.use(express.urlencoded({ extended: true })); // Thay thế bodyParser.urlencoded()
