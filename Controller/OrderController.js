@@ -1,7 +1,7 @@
 const Order =  require("../Schema/orderSchema")
 const User = require("../Schema/userSchema")
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
+const Cart = require("../Schema/cartSchema")
 
 module.exports.CreateOrder = async(req,res)=>{
     const id =  req.user._id
@@ -16,7 +16,9 @@ module.exports.CreateOrder = async(req,res)=>{
     })
 
     try {
-        order.save()
+       await order.save()
+       await Cart.updateOne({userId:id,items:[]})
+
         res.json({code:200,message:"Order successful"})
     } catch (error) {
         res.json({code:400,message:"Order failed"})
